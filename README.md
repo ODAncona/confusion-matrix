@@ -16,7 +16,19 @@ Installation / Utilisation locale
 - Copiez `confusion.typ` dans votre projet (ou placez-le dans un dossier de packages local si vous en utilisez un).
 - Importez et appelez la fonction comme ci-dessous.
 
-Import
+Import (Typst Universe)
+
+```typst
+#import "@preview/confusion-matrix:0.1.0": confusion-matrix
+```
+
+Dépendance (récupérée automatiquement)
+
+```typst
+#import "@preview/cetz:0.4.2"
+```
+
+Import (local)
 
 ```
 #import "confusion.typ": confusion-matrix
@@ -42,7 +54,7 @@ API
 Exemple minimal
 
 ```
-#import "confusion.typ": confusion-matrix
+#import "@preview/confusion-matrix:0.1.0": confusion-matrix
 
 #let labels = ("Covered", "ConditionUnmet", "NotCovered", "Uncertain")
 #let M = (
@@ -83,16 +95,21 @@ Bonnes pratiques et extensions possibles
 - Option future: `normalize: "none" | "row" | "column"` pour afficher des pourcentages.
 - Personnalisation fine (tailles, épaisseurs, marges) possible via de nouveaux paramètres.
 
-Publication (optionnelle)
+Publication (Typst Universe)
 
-- Pour un usage local, rien d’autre n’est requis.
-- Pour publier sur le registry Typst: préparer la structure conforme puis:
+- Il n’existe pas encore de CLI officielle pour publier directement. La voie standard est d’ouvrir une PR sur le dépôt typst/packages.
+- Option A — PR manuelle:
+  1. Fork `typst/packages`.
+  2. Créez `packages/preview/confusion-matrix/0.1.0/` et placez-y `typst.toml`, `README.md`, `LICENSE` et votre fichier d’entrée (`confusion.typ`).
+  3. Ouvrez une PR.
+- Option B — Avec Tyler (semi‑automatisé):
+  - Depuis la racine du paquet (avec `typst.toml` présent):
 
-```
-typst package publish confusion-matrix
-```
+    ```bash
+    tyler build -p
+    ```
 
-(consultez la documentation Typst pour le manifeste/metadata.)
+  - Tyler valide, crée l’arborescence `preview/<nom>/<version>` et vous guide pour ouvrir la PR.
 
 Crédits
 
