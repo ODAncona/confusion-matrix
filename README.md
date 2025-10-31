@@ -22,10 +22,10 @@ Reusable confusion matrix renderer for Typst, built on CeTZ.
 
 #let labels = ("Covered", "ConditionUnmet", "NotCovered", "Uncertain")
 #let M = (
-  (10, 3, 6, 2),
-  (2, 4, 3, 2),
-  (1, 0, 1, 1),
-  (2, 2, 0, 0),
+  (18, 3, 6, 2),
+  (2, 31, 3, 2),
+  (1, 0, 16, 1),
+  (2, 2, 0, 28),
 )
 
 #confusion-matrix(labels, M)
@@ -45,12 +45,10 @@ Reusable confusion matrix renderer for Typst, built on CeTZ.
   // Colormap (typed)
   cmap: color.map.viridis,   // array of colors (e.g., color.map.viridis, magma, inferno, plasma, cividis)
   gradient: none,            // alternatively pass a ready-made gradient
-  // Deprecated but supported for compatibility:
-  colormap-name: none,       // "viridis" | "magma" | "inferno" | "plasma" | "cividis"
-
   // Layout
   cell-size: 1.3,            // canvas units
   show-colorbar: true,
+  colorbar-ticks: 7,        // number of ticks on colorbar
   label-rotate: -35deg,
   value-font-size: 9pt,
   tick-scale: 0.07,

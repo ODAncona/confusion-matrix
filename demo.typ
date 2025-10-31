@@ -7,10 +7,10 @@
 
 #let labels = ("Covered", "ConditionUnmet", "NotCovered", "Uncertain")
 #let M = (
-  (10, 3, 6, 2),
+  (18, 3, 6, 2),
   (2, 31, 3, 2),
   (1, 0, 16, 1),
-  (2, 2, 0, 74),
+  (2, 2, 0, 28),
 )
 
 #set page(margin: 1.5cm)
