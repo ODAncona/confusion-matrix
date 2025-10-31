@@ -3,8 +3,8 @@
 
 // Confusion matrix rendering as a reusable Typst function.
 // Usage:
-//   #import "confusion.typ": confusion-matrix
-//   #confusion-matrix(labels, M, ...options)
+//   #import "confusion.typ": confy
+//   #confy(labels, M, ...options)
 //
 // Params:
 // - labels: tuple/list of n labels
@@ -19,7 +19,7 @@
 // - label-rotate: rotation for column labels
 // - value-font-size: value text size inside cells
 // - tick-scale: tick length factor relative to cell size
-#let confusion-matrix(
+#let confy(
   labels,
   M,
   title-row: "Predicted",

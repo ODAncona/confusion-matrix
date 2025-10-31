@@ -1,9 +1,9 @@
-// Demo document for the confusion-matrix Typst package.
+// Demo document for the confy Typst package.
 //
 // This demo imports the reusable function from confusion.typ and renders
 // the same example as in the original cm.typ, with a different colormap.
 
-#import "confusion.typ": confusion-matrix
+#import "confusion.typ": confy
 
 #let labels = ("Covered", "ConditionUnmet", "NotCovered", "Uncertain")
 #let M = (
@@ -18,7 +18,7 @@
 = Confusion Matrix Demo
 
 == Basic Example
-#confusion-matrix(
+#confy(
   labels,
   M,
   title-row: "Predicted",
@@ -29,7 +29,7 @@
 
 #v(1cm)
 == Customized Example
-#confusion-matrix(
+#confy(
   labels,
   M,
   title-row: "Predicted",

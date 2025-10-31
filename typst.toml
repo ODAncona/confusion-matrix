@@ -1,5 +1,5 @@
 [package]
-name = "confusion-matrix"
+name = "confy"
 version = "0.1.0"
 entrypoint = "confusion.typ"
 authors = ["Olivier D'Ancona"]

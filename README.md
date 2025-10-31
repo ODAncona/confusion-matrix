@@ -1,11 +1,11 @@
-# confusion-matrix (Typst)
+# confy (Typst)
 
 Reusable confusion matrix renderer for Typst, built on CeTZ.
 
 > TL;DR
 >
 > ```typst
-> #import "@preview/confusion-matrix:0.1.0": confusion-matrix
+> #import "@preview/confy:0.1.0": confy
 > ```
 
 ## Features
@@ -18,7 +18,7 @@ Reusable confusion matrix renderer for Typst, built on CeTZ.
 ## Quickstart
 
 ```typst
-#import "@preview/confusion-matrix:0.1.0": confusion-matrix
+#import "@preview/confy:0.1.0": confy
 
 #let labels = ("Covered", "ConditionUnmet", "NotCovered", "Uncertain")
 #let M = (
@@ -28,13 +28,13 @@ Reusable confusion matrix renderer for Typst, built on CeTZ.
   (2, 2, 0, 28),
 )
 
-#confusion-matrix(labels, M)
+#confy(labels, M)
 ```
 
 ## API
 
 ```typst
-#let confusion-matrix(
+#let confy(
   labels,                    // array of n labels (text or content)
   M,                         // n×n array of non-negative numbers
 
@@ -60,14 +60,14 @@ Reusable confusion matrix renderer for Typst, built on CeTZ.
 Pass a palette:
 
 ```typst
-#confusion-matrix(labels, M, cmap: color.map.inferno)
+#confy(labels, M, cmap: color.map.inferno)
 ```
 
 …or pass a gradient:
 
 ```typst
 #let g = gradient.linear(..color.map.cividis, angle: 270deg, relative: "self")
-#confusion-matrix(labels, M, gradient: g)
+#confy(labels, M, gradient: g)
 ```
 
 Typst ships predefined color maps as arrays in `color.map` which can be used directly as gradient stops (spread with `..`).
