@@ -1,4 +1,5 @@
 #import "@preview/cetz:0.4.2": canvas, draw
+#let Gradient = gradient
 
 // Confusion matrix rendering as a reusable Typst function.
 // Usage:
@@ -10,9 +11,11 @@
 // - M: n×n matrix (tuple of tuples) of non-negative values
 // - title-row: column axis title
 // - title-col: row axis title
-// - colormap-name: one of "viridis" | "magma" | "inferno" | "plasma" | "cividis"
+// - cmap: a palette, e.g., color.map.viridis | magma | inferno | plasma | cividis
+// - gradient: a gradient value, e.g., gradient.linear(red, blue)
 // - cell-size: cell size in canvas units
 // - show-colorbar: display colorbar on the right
+// - colorbar-ticks: 5
 // - label-rotate: rotation for column labels
 // - value-font-size: value text size inside cells
 // - tick-scale: tick length factor relative to cell size
@@ -21,9 +24,11 @@
   M,
   title-row: "Predicted",
   title-col: "Ground Truth",
-  colormap-name: "viridis",
+  cmap: color.map.viridis,
+  gradient: none,
   cell-size: 1.3,
   show-colorbar: true,
+  colorbar-ticks: 7,
   label-rotate: -35deg,
   value-font-size: 9pt,
   tick-scale: 0.07,
@@ -46,14 +51,9 @@
       }
     }
 
-    // Select colormap
-    let cmap-base = if colormap-name == "viridis" { color.map.viridis } else if colormap-name == "magma" {
-      color.map.magma
-    } else if colormap-name == "inferno" { color.map.inferno } else if colormap-name == "plasma" {
-      color.map.plasma
-    } else if colormap-name == "cividis" { color.map.cividis } else { color.map.viridis }
-
-    let colormap = gradient.linear(..cmap-base, angle: 270deg, relative: "self")
+    let colormap = if gradient != none { gradient } else {
+      Gradient.linear(..cmap, angle: 270deg, relative: "self")
+    }
     let sample_map(v, max) = {
       if max == 0 { colormap.sample(0%) } else { colormap.sample((v / max) * 100%) }
     }
@@ -67,10 +67,10 @@
     // Cells + values
     for (i, row) in M.enumerate() {
       for (j, v) in row.enumerate() {
-        let x1 = left + (j + 1) * cell
-        let y1 = top - (i + 1) * cell
-        let x2 = left + (j + 2) * cell
-        let y2 = top - (i + 2) * cell
+        let x1 = left + (j) * cell
+        let y1 = top - (i) * cell
+        let x2 = left + (j + 1) * cell
+        let y2 = top - (i + 1) * cell
 
         let bg = sample_map(v, maxv)
         rect((x1, y1), (x2, y2), fill: bg, stroke: none)
@@ -82,10 +82,10 @@
     }
 
     // Outer border
-    let x0 = left + cell
-    let y0 = top - cell
-    let xN = left + (n + 1) * cell
-    let yN = top - (n + 1) * cell
+    let x0 = left
+    let y0 = top
+    let xN = left + (n) * cell
+    let yN = top - (n) * cell
     rect(
       (x0, yN),
       (xN, y0),
@@ -95,28 +95,29 @@
 
     // Tick marks
     for i in range(0, n) {
-      let y = top - (i + 1.5) * cell
+      let y = top - (i + .5) * cell
       line((x0 - tick, y), (x0, y), stroke: (thickness: 0.6pt, cap: "square"))
     }
     for j in range(0, n) {
-      let x = left + (j + 1.5) * cell
+      let x = left + (j + .5) * cell
       line((x, yN), (x, yN - tick), stroke: (thickness: 0.6pt, cap: "square"))
     }
 
     // Column labels
     for (j, lab) in labels.enumerate() {
-      let x = left + (j + 1.5) * cell
+      let x = left + j * cell
+      let y = yN - 0.6 * cell - tick
       content(
-        (x, yN - 0.6 * cell - tick),
+        (x, y),
         rotate(label-rotate)[#text(size: 8pt, weight: "bold")[#lab]],
-        anchor: "east",
+        anchor: "center",
       )
     }
 
     // Row labels
     for (i, lab) in labels.enumerate() {
-      let x = left + cell - tick - 0.06 * cell
-      let y = top - (i + 1.5) * cell
+      let x = left - tick - 0.06 * cell
+      let y = top - (i + .5) * cell
       content(
         (x, y),
         text(size: 8pt, weight: "bold")[#lab],
@@ -125,14 +126,17 @@
     }
 
     // Headers
+    let header_margin = 0.30 * cell
     content(
-      (left + (n / 2 + 1) * cell, y0 + 0.2 * cell),
+      (left + (n / 2) * cell, y0 + header_margin),
       smallcaps[#title-row],
       anchor: "center",
     )
     let max_label_size = 2.2
+    let x = x0 - tick - header_margin - max_label_size
+    let y = (y0 + yN) / 2
     content(
-      (x0 - tick - 0.2 * cell - max_label_size, (y0 + yN) / 2),
+      (x, y),
       rotate(-90deg)[#smallcaps[#title-col]],
       anchor: "center",
     )
@@ -154,9 +158,11 @@
       let tlen = 0.15
       let tx = lg_x0 + lg_w
       if maxv > 0 {
-        for s in range(0, maxv + 1) {
-          let t = s / maxv
+        let n_ticks = colorbar-ticks
+        for k in range(0, n_ticks) {
+          let t = k / (n_ticks - 1)
           let y = lg_y0 + t * lg_h
+          let s = calc.round(t * maxv)
           line((tx, y), (tx + tlen, y), stroke: (thickness: 0.4pt, cap: "square"))
           content((tx + tlen + 0.1, y), text(size: 7pt)[#s], anchor: "west")
         }

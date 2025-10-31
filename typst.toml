@@ -6,5 +6,15 @@ authors = ["Olivier D'Ancona"]
 license = "MIT"
 description = "Reusable confusion matrix renderer built on CeTZ."
 repository = "https://github.com/ODAncona/confusion-matrix"
-compiler = "0.13.1"
+keywords = [
+    "confusion matrix",
+    "heatmap",
+    "classification",
+    "machine learning",
+    "visualization",
+    "cm",
+    "score",
+    "cetz",
+]
+compiler = "0.14.0"
 exclude = ["demo.pdf", "README.assets/", "gallery/"]

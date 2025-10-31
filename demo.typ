@@ -8,37 +8,35 @@
 #let labels = ("Covered", "ConditionUnmet", "NotCovered", "Uncertain")
 #let M = (
   (10, 3, 6, 2),
-  (2, 4, 3, 2),
-  (1, 0, 1, 1),
-  (2, 2, 0, 0),
+  (2, 31, 3, 2),
+  (1, 0, 16, 1),
+  (2, 2, 0, 74),
 )
 
 #set page(margin: 1.5cm)
 
 = Confusion Matrix Demo
 
+== Basic Example
 #confusion-matrix(
   labels,
   M,
   title-row: "Predicted",
   title-col: "Ground Truth",
-  colormap-name: "viridis",
   cell-size: 1.3,
   show-colorbar: true,
 )
 
-// Optional: a second rendering with different options for comparison.
-// Uncomment if you want to preview different styles.
-
-#pagebreak()
+#v(1cm)
+== Customized Example
 #confusion-matrix(
   labels,
   M,
   title-row: "Predicted",
   title-col: "Ground Truth",
-  colormap-name: "viridis",
-  cell-size: 1.1,
+  cell-size: 1.75,
+  cmap: color.map.mako,
   show-colorbar: false,
-  label-rotate: -20deg,
+  label-rotate: -40deg,
   value-font-size: 8.5pt,
 )
