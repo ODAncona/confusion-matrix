@@ -1,20 +1,20 @@
 # confusion-matrix (Typst)
 
-Rendu de matrice de confusion réutilisable pour Typst, basé sur @preview/cetz.
+Reusable confusion matrix renderer for Typst, built on @preview/cetz.
 
-- Fichier principal: `confusion.typ` (exporte la fonction `confusion-matrix`)
-- Démo: `demo.typ`
-- Licence: voir `LICENSE`
+- Main file: `confusion.typ` (exports the function `confusion-matrix`)
+- Demo: `demo.typ`
+- License: see `LICENSE`
 
-Prérequis
+Prerequisites
 
-- Typst installé
-- Accès au package `@preview/cetz:0.4.2` (utilisé en interne par `confusion.typ`)
+- Typst installed
+- Access to the package `@preview/cetz:0.4.2` (used internally by `confusion.typ`)
 
-Installation / Utilisation locale
+Installation / Local usage
 
-- Copiez `confusion.typ` dans votre projet (ou placez-le dans un dossier de packages local si vous en utilisez un).
-- Importez et appelez la fonction comme ci-dessous.
+- Copy `confusion.typ` into your project (or place it in a local packages folder if you use one).
+- Import and call the function as shown below.
 
 Import (Typst Universe)
 
@@ -22,7 +22,7 @@ Import (Typst Universe)
 #import "@preview/confusion-matrix:0.1.0": confusion-matrix
 ```
 
-Dépendance (récupérée automatiquement)
+Dependency (fetched automatically)
 
 ```typst
 #import "@preview/cetz:0.4.2"
@@ -38,22 +38,22 @@ API
 
 ```
 #let confusion-matrix(
-  labels,                         // tuple/liste de n labels
-  M,                              // matrice n×n (tuple de tuples) de valeurs >= 0
-  title-row: "Predicted",         // titre axe colonnes
-  title-col: "Ground Truth",      // titre axe lignes
+  labels,                         // tuple/list of n labels
+  M,                              // n×n matrix (tuple of tuples) of values >= 0
+  title-row: "Predicted",         // column axis title
+  title-col: "Ground Truth",      // row axis title
   colormap-name: "viridis",       // "viridis" | "magma" | "inferno" | "plasma" | "cividis"
-  cell-size: 1.3,                 // taille d’une cellule (unités canvas)
-  show-colorbar: true,            // affiche la barre de couleurs
-  label-rotate: -35deg,           // rotation des labels colonnes
-  value-font-size: 9pt,           // taille du texte dans les cellules
-  tick-scale: 0.07,               // longueur des ticks en proportion de cell-size
+  cell-size: 1.3,                 // cell size (canvas units)
+  show-colorbar: true,            // display the color bar
+  label-rotate: -35deg,           // rotation for column labels
+  value-font-size: 9pt,           // text size for cell values
+  tick-scale: 0.07,               // tick length as a proportion of cell-size
 )
 ```
 
-Exemple minimal
+Minimal example
 
-```
+```typst
 #import "@preview/confusion-matrix:0.1.0": confusion-matrix
 
 #let labels = ("Covered", "ConditionUnmet", "NotCovered", "Uncertain")
@@ -75,9 +75,9 @@ Exemple minimal
 )
 ```
 
-Démo
+Demo
 
-- Compilez la démo:
+- Compile the demo:
 
 ```
 typst compile demo.typ
@@ -85,32 +85,32 @@ typst compile demo.typ
 
 Notes
 
-- La sélection de colormap prend en charge: `viridis`, `magma`, `inferno`, `plasma`, `cividis`. Toute autre valeur retombe sur `viridis`.
-- Si `max(M) == 0`, une couleur uniforme est utilisée et la colorbar n’affiche pas de graduation non pertinente.
-- La couleur du texte dans les cellules est ajustée automatiquement pour le contraste (noir/blanc) selon le fond.
+- Supported colormaps: `viridis`, `magma`, `inferno`, `plasma`, `cividis`. Any other value falls back to `viridis`.
+- If `max(M) == 0`, a uniform color is used and the colorbar shows no irrelevant ticks.
+- Cell text color (black/white) is adjusted automatically for contrast based on the background.
 
-Bonnes pratiques et extensions possibles
+Good practices and possible extensions
 
-- Valider que `len(labels) == n`, `M` est carrée et de taille `n × n`.
-- Option future: `normalize: "none" | "row" | "column"` pour afficher des pourcentages.
-- Personnalisation fine (tailles, épaisseurs, marges) possible via de nouveaux paramètres.
+- Validate that `len(labels) == n`, `M` is square, and size is `n × n`.
+- Future option: `normalize: "none" | "row" | "column"` to display percentages.
+- Fine customization (sizes, thicknesses, margins) can be added via new parameters.
 
-Publication (Typst Universe)
+Publishing (Typst Universe)
 
-- Il n’existe pas encore de CLI officielle pour publier directement. La voie standard est d’ouvrir une PR sur le dépôt typst/packages.
-- Option A — PR manuelle:
+- There is no official CLI yet to publish directly. The standard path is to open a PR on the `typst/packages` repository.
+- Option A — Manual PR:
   1. Fork `typst/packages`.
-  2. Créez `packages/preview/confusion-matrix/0.1.0/` et placez-y `typst.toml`, `README.md`, `LICENSE` et votre fichier d’entrée (`confusion.typ`).
-  3. Ouvrez une PR.
-- Option B — Avec Tyler (semi‑automatisé):
-  - Depuis la racine du paquet (avec `typst.toml` présent):
+  2. Create `packages/preview/confusion-matrix/0.1.0/` and place `typst.toml`, `README.md`, `LICENSE`, and your entrypoint file (`confusion.typ`) there.
+  3. Open a PR.
+- Option B — With Tyler (semi-automated):
+  - From the package root (with `typst.toml` present):
 
     ```bash
     tyler build -p
     ```
 
-  - Tyler valide, crée l’arborescence `preview/<nom>/<version>` et vous guide pour ouvrir la PR.
+  - Tyler validates, creates the `preview/<name>/<version>` tree, and guides you to open the PR.
 
-Crédits
+Credits
 
-- Rendu basé sur `@preview/cetz:0.4.2` (canvas/draw).
+- Rendering based on `@preview/cetz:0.4.2` (canvas/draw).
