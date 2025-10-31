@@ -1,0 +1,10 @@
+[package]
+name = "confusion-matrix"
+version = "0.1.0"
+entrypoint = "confusion.typ"
+authors = ["Olivier D'Ancona"]
+license = "MIT"
+description = "Reusable confusion matrix renderer built on CeTZ."
+repository = "https://github.com/ODAncona/confusion-matrix"
+compiler = "0.13.1"
+exclude = ["demo.pdf", "README.assets/", "gallery/"]
