@@ -160,7 +160,7 @@
       if maxv > 0 {
         let n_ticks = colorbar-ticks
         for k in range(0, n_ticks) {
-          let t = k / (n_ticks - 1)
+          let t = k / (calc.clamp(n_ticks, 1, n_ticks) - 1)
           let y = lg_y0 + t * lg_h
           let s = calc.round(t * maxv)
           line((tx, y), (tx + tlen, y), stroke: (thickness: 0.4pt, cap: "square"))

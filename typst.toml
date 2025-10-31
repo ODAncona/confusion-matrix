@@ -17,4 +17,4 @@ keywords = [
     "cetz",
 ]
 compiler = "0.14.0"
-exclude = ["demo.pdf", "README.assets/", "gallery/"]
+exclude = ["demo.typ", "demo.pdf"]
