@@ -45,7 +45,7 @@ Reusable confusion matrix renderer for Typst, built on CeTZ.
   grad: none,            // alternatively pass a ready-made gradient
   // Layout
   cell-size: 1.3,            // canvas units
-  show-colorbar: true,
+  colorbar: true,
   colorbar-ticks: 7,        // number of ticks on colorbar
   label-rotate: -35deg,
   value-font-size: 9pt,

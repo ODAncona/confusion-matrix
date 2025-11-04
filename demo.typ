@@ -20,7 +20,7 @@
   title-row: "Predicted",
   title-col: "Ground Truth",
   cell-size: 1.3,
-  show-colorbar: true,
+  colorbar: true,
 )
 
 #v(1cm)
@@ -32,7 +32,7 @@
   title-col: "Ground Truth",
   cell-size: 1.75,
   cmap: color.map.mako,
-  show-colorbar: true,
+  colorbar: true,
   label-rotate: -40deg,
   value-font-size: 8.5pt,
   colorbar-ticks: 14,

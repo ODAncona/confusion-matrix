@@ -13,7 +13,7 @@
 // - cmap: a palette, e.g., color.map.viridis | magma | inferno | plasma | cividis
 // - grad: a gradient value, e.g., gradient.linear(red, blue)
 // - cell-size: cell size in canvas units
-// - show-colorbar: display colorbar on the right
+// - colorbar: display colorbar on the right
 // - colorbar-ticks: 7
 // - label-rotate: rotation for column labels
 // - value-font-size: value text size inside cells
@@ -26,7 +26,7 @@
   cmap: color.map.viridis,
   grad: none,
   cell-size: 1.3,
-  show-colorbar: true,
+  colorbar: true,
   colorbar-ticks: 7,
   label-rotate: -35deg,
   value-font-size: 9pt,
@@ -141,7 +141,7 @@
     )
 
     // Colorbar
-    if show-colorbar {
+    if colorbar {
       let lg_w = 0.35
       let lg_h = y0 - yN
       let lg_x0 = xN + 0.4 * cell
